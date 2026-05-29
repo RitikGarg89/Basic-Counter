@@ -1,0 +1,293 @@
+/* Import modern premium font */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Modern Dark Theme Color System (HSL) */
+  --bg-dark-radial: radial-gradient(circle at center, #161722 0%, #0b0c10 100%);
+  --card-bg: rgba(255, 255, 255, 0.025);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-glow: rgba(99, 102, 241, 0.05);
+  
+  /* Text Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-glow: 0 0 20px rgba(255, 255, 255, 0.1);
+  
+  /* Buttons Gradients & Glows */
+  --grad-increment: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --glow-increment: 0 4px 20px rgba(99, 102, 241, 0.4);
+  
+  --grad-decrement: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  --glow-decrement: 0 4px 20px rgba(225, 29, 72, 0.4);
+  
+  --grad-reset: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  --glow-reset: 0 4px 15px rgba(30, 41, 59, 0.5);
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Global Reset & Base Styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg-dark-radial);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  padding: 1.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Background animated glow orbs for premium modern look */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+body::before {
+  background: #6366f1;
+  top: 15%;
+  left: 20%;
+  animation: floatOrbOne 20s infinite alternate ease-in-out;
+}
+
+body::after {
+  background: #f43f5e;
+  bottom: 15%;
+  right: 20%;
+  animation: floatOrbTwo 20s infinite alternate ease-in-out;
+}
+
+/* Container Card (#center) styling with Glassmorphism and CSS Grid Layout */
+#center {
+  background: var(--card-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--card-border);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 40px var(--card-glow);
+  padding: 3.5rem 2.5rem;
+  border-radius: 28px;
+  width: 100%;
+  max-width: 440px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+#center::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  transform: rotate(-30deg);
+  pointer-events: none;
+}
+
+/* Hero Section spanning full columns */
+.hero {
+  grid-column: span 2;
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.15));
+  animation: pulseScale 3s infinite ease-in-out;
+  font-feature-settings: "tnum";
+}
+
+/* Common Premium Button Design */
+button[type="button"] {
+  width: 100%;
+  padding: 1.1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-sans);
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+}
+
+button[type="button"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+button[type="button"]:active {
+  transform: scale(0.96) translateY(1px);
+  filter: brightness(0.95);
+}
+
+/* Individual Button Placements */
+button.Increment {
+  grid-column: span 1;
+  background: var(--grad-increment);
+  box-shadow: var(--glow-increment);
+}
+
+button.Decrement {
+  grid-column: span 1;
+  background: var(--grad-decrement);
+  box-shadow: var(--glow-decrement);
+}
+
+button.Reset {
+  grid-column: span 2;
+  background: var(--grad-reset);
+  box-shadow: var(--glow-reset);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Apply premium hover animations ONLY to devices that support hovering (non-touch devices) */
+@media (hover: hover) {
+  button[type="button"]:hover::after {
+    opacity: 1;
+  }
+
+  button.Increment:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6), 0 0 0 3px rgba(99, 102, 241, 0.2);
+  }
+
+  button.Decrement:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(225, 29, 72, 0.6), 0 0 0 3px rgba(225, 29, 72, 0.2);
+  }
+
+  button.Reset:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(30, 41, 59, 0.7), 0 0 0 3px rgba(148, 163, 184, 0.15);
+    background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  }
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+
+/* Small Tablets / Large Mobiles */
+@media (max-width: 480px) {
+  body {
+    padding: 1rem;
+  }
+
+  #center {
+    padding: 2.5rem 1.5rem;
+    gap: 1rem;
+    border-radius: 24px;
+  }
+
+  .hero {
+    margin-bottom: 0.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  button[type="button"] {
+    padding: 0.95rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+}
+
+/* Ultra Small Mobiles (e.g. iPhone SE) */
+@media (max-width: 360px) {
+  #center {
+    /* Stack buttons vertically on ultra-narrow viewports to prevent squishing text */
+    grid-template-columns: 1fr;
+    padding: 2rem 1.25rem;
+    gap: 0.85rem;
+  }
+
+  .hero {
+    grid-column: span 1;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  button.Increment,
+  button.Decrement,
+  button.Reset {
+    grid-column: span 1;
+  }
+}
+
+/* Landscape orientation on mobile devices with short heights */
+@media (max-height: 520px) and (orientation: landscape) {
+  body {
+    align-items: flex-start;
+    padding: 2rem 1rem;
+  }
+}
+
+/* Micro-animations */
+@keyframes floatOrbOne {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 20px) scale(1.08); }
+  100% { transform: translate(-20px, -40px) scale(0.92); }
+}
+
+@keyframes floatOrbTwo {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, -30px) scale(0.96); }
+  100% { transform: translate(40px, 15px) scale(1.1); }
+}
+
+@keyframes pulseScale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
